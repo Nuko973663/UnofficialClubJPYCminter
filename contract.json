@@ -32,6 +32,24 @@
       ],
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "templateId_",
+          "type": "uint256"
+        }
+      ],
+      "name": "changeTemplateOfToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ]
 }
