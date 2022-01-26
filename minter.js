@@ -61,7 +61,8 @@ function detectMetaMask() {
 
 async function mint() {
   $("#mint").prop("disabled", true);
-  console.log("mint");
+  let templateNo = parseInt($("#templateNo").val());
+  console.log("mint", templateNo);
   try {
     web3 = new Web3(ethereum);
   } catch (error) {
@@ -69,7 +70,7 @@ async function mint() {
   }
   const contract = new web3.eth.Contract(abi, contractAddress);
   contract.methods
-    .mint(0)
+    .mint(templateNo)
     .send({ from: currentAccount })
     .on("transactionHash", (hash) => {
       console.log(hash);
@@ -98,6 +99,56 @@ async function mint() {
     });
 }
 
+function detectMetaMask() {
+  if (typeof window.ethereum !== "undefined") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+async function change() {
+  $("#changeTemplate").prop("disabled", true);
+  let tokenId = parseInt($("#tokenId").val());
+  console.log(tokenId);
+  let templateNo = parseInt($("#templateNoChange").val());
+  console.log("change", tokenId, "template#", templateNo);
+  try {
+    web3 = new Web3(ethereum);
+  } catch (error) {
+    alert(error);
+  }
+  const contract = new web3.eth.Contract(abi, contractAddress);
+  contract.methods
+    .changeTemplateOfToken(tokenId, templateNo)
+    .send({ from: currentAccount })
+    .on("transactionHash", (hash) => {
+      console.log(hash);
+      $("#hashChange").append(
+        "<a href='https://polygonscan.com/tx/" +
+          hash +
+          "' target=_blank>" +
+          hash +
+          "</a><br/><br/>"
+      );
+      $("#changeTemplate").text("Changing template... wait for a while");
+    })
+    .on("receipt", function (receipt) {
+      $("#changeTemplate").text("Template changed!");
+      $("#hashChange").append(
+        "<a href='https://openSea.io/" +
+          currentAccount +
+          "' target=_blank>Check on Opensea. https://opensea.io/" +
+          currentAccount +
+          "</a><br/><br/><font color=red>OpenSeaで変更を確認するためにはRefresh Metadataボタンを押してください（キャッシュの更新）</font>"
+      );
+    })
+    .on("error", function (error, receipt) {
+      // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
+      console.log(error);
+    });
+}
+
 $(document).ready(function () {
   m = detectMetaMask();
   if (m) {
@@ -113,5 +164,9 @@ $(document).ready(function () {
 
   $("#mint").click(function () {
     mint();
+  });
+
+  $("#changeTemplate").click(function () {
+    change();
   });
 });

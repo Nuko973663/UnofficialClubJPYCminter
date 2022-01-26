@@ -49,36 +49,80 @@
           </ul>
         </div>
         <div class="col-md-12"><h3>Membership card sample</h3></div>
-        <div class="col-md-12">
-        <img src="sample.svg" width=512px></img></div>
+        <div class="col-md-6">
+          <h6>Template #0</h6>
+          <img src="sample.svg" width=400px></img>
+        </div>
+        <div class="col-md-6">
+          <h6>Template #1</h6>
+          <img src="sample2.svg" height=400px></img>
+        </div>
       </div>
 
-      <section class="contract-section hidden">
-        <div style="margin-top: 30px" class="row text-center">
-          <div class="col-md-12">
-            <h3>発行する</h3>
-          </div>
+     
+      <div style="margin-top: 30px" class="row text-center">
+        <div class="col-md-12">
+          <h3>発行する</h3>
         </div>
-        <div class="row text-center">
-          <div class="col-md-12">
-            <span>Contract address: <i id="contractAddress"></i></span>
-          </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <span>Contract address: <i id="contractAddress"></i></span>
         </div>
-        <div class="row text-center">
-          <div class="col-md-12 offset-12">
-            <span>
-              <button id="mint" class="btn btn-primary">
-                Free mint
-              </button></span>
-          </div>
-          <div class="col-md-12">
-            <span><i id="hash"></i></span>
-          </div>
-        </div>
-      </section>
-      <div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12 offset-12">
+          <select name="tempalteNo" id="templateNo">
+            <option value="0">Template 0 横型</option>
+            <option value="1">Template 1 縦型</option>
+          </select>
         
-        <img id="nft" src=""></img>
+          <span>
+            <button id="mint" class="btn btn-primary">
+              Free mint
+            </button></span>
+        </div>
+        <div class="col-md-12">
+          <span><i id="hash"></i></span>
+        </div>
+      </div>
+     
+      <div style="margin-top: 30px" class="row text-center">
+        <div class="col-md-12">
+          <h3>デザインを変更する</h3>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <span>Contract address: <i id="contractAddress"></i></span>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12 offset-12">
+
+          Your Member's ID
+          <input type=text id="tokenId"/>
+
+          <select name="tempalteNoChange" id="templateNoChange">
+            <option value="0">Template 0 横型</option>
+            <option value="1">Template 1 縦型</option>
+          </select>
+        
+          <span>
+            <button id="changeTemplate" class="btn btn-primary">
+              Change Template
+            </button></span>
+        </div>
+        <div class="col-md-12">
+          <span><i id="hashChange"></i></span>
+        </div>
+      </div>
+     
+      <hr>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <a href="https://twitter.com/nuko973663" target="_blank">@nuko973663</a>
+        </div>
       </div>
     </div>
     <script src="minter.js"></script>
