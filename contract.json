@@ -1,5 +1,6 @@
 {
   "FoCNFTCert": "0xE130471E1E1562457fce78F30F2954B083b07A52",
+  "TokenDistributer": "0xeE109E0e14695F948d7629B11fb1012AC6920A8D",
   "abi": [
     {
       "inputs": [
@@ -49,6 +50,34 @@
       "name": "changeTemplateOfToken",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "abiTD": [
+    {
+      "inputs": [],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner_",
+          "type": "address"
+        }
+      ],
+      "name": "isClaimable",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     }
   ]
