@@ -3,6 +3,10 @@ let web3;
 let abi;
 let contractAddress;
 
+const NODE_URL = ["https://polygon-rpc.com"];
+
+const web3p = new Web3(NODE_URL[0]);
+
 $.getJSON("contract.json", function (result) {
   contractAddress = result.TokenDistributer;
   abi = result.abiTD;
@@ -53,6 +57,18 @@ function detectMetaMask() {
   } else {
     return false;
   }
+}
+
+function getStock() {
+  const contract = new web3p.eth.Contract(abi, contractAddress);
+  contract.methods
+    .getStock()
+    .call()
+    .then((values) => {
+      if (values == 0) $("#claim").prop("disabled", true);
+      console.log("stock: ", values);
+      $("#stock").text("Stock available: " + values.toString());
+    });
 }
 
 async function claim() {
@@ -118,4 +134,7 @@ $(document).ready(function () {
   $("#claim").click(function () {
     claim();
   });
+
+  setTimeout(getStock, 1000);
+  setInterval(getStock, 10000);
 });
