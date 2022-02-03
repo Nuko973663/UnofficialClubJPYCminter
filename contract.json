@@ -1,6 +1,7 @@
 {
   "FoCNFTCert": "0xE130471E1E1562457fce78F30F2954B083b07A52",
   "TokenDistributer": "0xeE109E0e14695F948d7629B11fb1012AC6920A8D",
+  "JPYCFaucet": "0x5A25119Ff87C8FDD01174f9350Fd5A2fF2A0BDF8",
   "abi": [
     {
       "inputs": [
@@ -78,6 +79,28 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getStock",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "abiFaucet": [
+    {
+      "inputs": [],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
