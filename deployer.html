@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>独コン　デプロイ（仮設）</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- title -->
+      <div style="margin-top: 30px" class="row text-center">
+        <div class="col-md-12">
+          <h2>独自コントラクト　デプロイ<br />＆フルオンチェーンNFT発行</h2>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px" class="row text-center">
+        <div class="col-md-6">
+          <span style="color:white; background-color: #3333FF;">Polygon mainnet</span>
+        </div>
+        <div class="col-md-6">
+          <span><a href="deployer-mumbai.html">Polygon testnet (mumbai)</a></span>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px" class="row text-center">
+        <div class="col-md-12">
+          <p>とりあえずリリースしてみました。ユーザーインターフェースがダメダメですが、近いうちにきれいにします。</p>
+          <p>基本的に上からボタンを押していくだけでいいはずです。</p>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="margin-top: 30px">
+        <h3>What's this Dapp? / 概要</h3>
+        <ul>
+          <ui></ui>
+            1) This dapp deploys your own smart contract that can mint NFT
+            (ERC721 standard). <br /></ui
+          ><ui> 2) Only SVG format for image is allowed currently.<br /> </ui
+          ><ui> 3) File size of SVG is valid when the size is under 80 KB. Failed when I tried images with over 90 KB.<br/></ui><br/>
+          <ui
+            >1)
+            フルオンチェーンNFT（ERC721規格）を発行できる独自コントラクトをデプロイします
+            <br /></ui
+          ><ui> 2) NFTの画像は現時点でsvg形式のみ対応しています<br /> </ui
+          ><ui
+            >3)
+            最大サイズは概ね80KB程度（82KBまでは成功しています90KB越えは失敗）</ui
+          >
+        </ul>
+      </div>
+    </div>
+
+    <!-- Metamask -->
+    <div class="container">
+      <div style="margin-top: 30px" class="row text-left">
+        <div class="col-md-12">
+          <h4>①Connect Metamask / メタマスクの接続</h4>
+          <p>Polygon network only / いまのところPolygonのみです</p>
+        </div>
+      </div>
+      <div style="margin-top: 30px" class="row text-center">
+        <div class="col-md-12">
+          <button id="enableMetamask" class="btn btn-primary">
+            Connect with Metamask
+          </button>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <span id="status"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deploy your contract -->
+    <div class="container">
+      <div style="margin-top: 30px" class="row text-left">
+        <div class="col-md-12">
+          <h4>②Deploy your own contract / コントラクトのデプロイ</h4>
+        </div>
+        <div class="col-md-12">
+          <p>Note:</p>
+          <ul>
+            <ui
+              >Imagine what I wrote below in Japanese. That's 'Kuuki wo yomu.'.
+              <br /></ui
+            ><br/>
+            <ui
+              >NFTの入れ物である自分用のスマートコントラクト（プログラムのこと）をブロックチェーン上にアップロードします（デプロイ）
+              <br /></ui
+            ><ui>
+              OpenSeaでは一つのスマートコントラクトが一つのコレクションとして扱われます。<br /> </ui
+            ><ui>一つのスマートコントラクトで複数のNFTがミントできます。</ui>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row text-left">
+        <div class="col-md-12">
+          Collection name:
+          <input
+            id="tokenName"
+            type="text"
+            class="form-control"
+            value="MyFullyOnChainNFTs"
+            placeholder="MyFullyOnChainNFTs"
+          />
+        </div>
+        <div class="col-md-12">
+          Token Symbol:
+          <input
+            id="tokenSymbol"
+            type="text"
+            class="form-control"
+            value="FoCNFT"
+            placeholder="FoCNFT"
+          />
+        </div>
+        <div class="col-md-12" style="margin-top: 15px">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="isMember" />
+            <label class="form-check-label" for="isMember"
+              >I'm a member of unofficial Club JPYC /
+              私は非公式JPYCファンクラブの会員です</label
+            >
+            <p>
+              For non-members, consider to join us. See
+              <a
+                href="https://nuko973663.github.io/UnofficialClubJPYCminter/"
+                target="_blank"
+                >link</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-center" style="margin-top: 30px">
+        <div class="col-md-4 offset-4">
+          <button id="deploy" class="btn btn-primary">Deploy Contract</button>
+        </div>
+        <!--
+        <div class="col-md-4">
+          <button id="checkOwn" class="btn btn-primary">Already own?</button>
+        </div>
+      --></div>
+      <div class="row text-center" style="margin-top: 30px">
+        <div class="col-md-12">
+          <p>Contract address: <span id="addressContract">Not set</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mint NFTs -->
+    <div class="container">
+      <div style="margin-top: 30px" class="row text-left">
+        <div class="col-md-12">
+          <h4>③Mint NFTs</h4>
+        </div>
+        <div class="col-md-12">
+          <p>Note:</p>
+          <ul>
+            <ui
+              >Again imagine or DeepL it.
+              <br /></ui
+            ><br/>
+            <ui
+              >③-1.
+              NFTのタイトル（Name）と説明文（Description）を入力してMintします。これらはFreezeするまで編集できます。
+              <br /></ui
+            ><ui>
+              ③-2.
+              SVGファイルを読み込みアップロードします。複数に分けてアップロードします。<br /> </ui
+            ><ui
+              >③-3.
+              すべてOpenSea等で表示を確認し、問題なければFreezeしてMetadataを固定します。</ui
+            >
+          </ul>
+        </div>
+      </div>
+
+      <div class="row text-center" style="margin-top: 30px">
+        <div class="col-md-7">
+          <div class="row text-left">
+            <h6><span>Collection Name</span></h6>
+          </div>
+          <div class="row text-left">
+            <h4><span id="collectionName">My collection</span></h4>
+          </div>
+          <div class="row text-left">
+            <h6><span>Name</span></h6>
+            <input
+              id="nftName"
+              type="text"
+              class="form-control"
+              value=""
+              placeholder="Name of NFT"
+            />
+            <h6>Description</h6>
+            <textarea class="form-control" id="description" rows="4"></textarea>
+          </div>
+          <div class="row text-center" style="margin-top: 15px">
+            <div class="col-md-6">
+              <button id="mint" class="btn btn-primary">③-1. Mint</button>
+            </div>
+            <div class="col-md-6">
+              <button id="updateNameDescription" class="btn btn-primary">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="row text-center" style="margin-top: 30px">
+            <div class="col-md-12">
+              <h5>Image</h5>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-md-12">
+              <button id="loadImage" class="btn btn-primary">
+                ③-2. Load Image
+              </button>
+            </div>
+            <div class="col-md-12" style="margin-top: 15px">FileSize: <span id="fileSize"></span></div>
+            <div class="col-md-12" style="margin-top: 15px">
+              
+              <button id="uploadImage" class="btn btn-primary">
+                ③-3. Upload
+              </button>
+            </div>
+          </div>
+          <div style="margin-top: 15px"><a href="" target="_blank" id="nftA">
+            <img id="nft" class="img-fluid" /></a>
+          </div>
+          <br />
+        </div>
+      </div>
+      <div class="row text-center" style="margin-top: 30px">
+        <div class="col-md-12">
+          <button id="freeze" class="btn btn-primary">③-3. Freeze data</button>
+        </div>
+      </div>
+      <div class="row text-center" style="margin-top: 30px">
+        <div class="col-md-12">
+          <span id="message" ></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="container">
+      <div style="margin-top: 30px" class="row text-left">
+        <div class="col-md-12">
+          <hr />
+        </div>
+      </div>
+      <div style="margin-bottom: 60px" class="row text-center">
+        <div class="col-md-12">
+          For members of
+          <a
+            href="https://nuko973663.github.io/UnofficialClubJPYCminter/"
+            target="_blank"
+            >unofficial club JPYC</a
+          >
+          <br />
+          <a href="https://twitter.com/nuko973663" target="_blank"
+            >@nuko973663</a
+          >
+        </div>
+      </div>
+    </div>
+    <script src="js/deploy.js"></script>
+  </body>
+</html>
